@@ -2,9 +2,10 @@ import React, { useState, useEffect } from 'react';
 import JoblyApi from "./HelperApi";
 import SearchBar from "./SearchBar";
 import CompanyCard from "./CompanyCard";
+import './CompanyList.css'
 
 /**CompanyList: Component that renders list of CompanyCards */
-function CompanyList({currentUser}) {
+function CompanyList() {
   const [companies, setCompanies] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -27,7 +28,7 @@ function CompanyList({currentUser}) {
 
 //runs on search bar if search bar is used, passed to search bar component in props
   function companyListSearch(filteredCompanies){
-    setCompanies(filteredCompanies); 
+    setCompanies(filteredCompanies);
   }
 
   //change to state
@@ -37,15 +38,11 @@ function CompanyList({currentUser}) {
         Loading...
       </div>
     );
-  } else if(!currentUser.username) {
-    return(
-      <h1>UNAUTHORIZED!</h1>
-    )
   }else{
     return (
       <div>
         <SearchBar whichSearch='companies' searchCompanies={companyListSearch}/>
-        <div>
+        <div >
           {companies.map(({ name, logo_url, description, handle }) =>
             <CompanyCard
               key={handle}
@@ -65,7 +62,7 @@ export default CompanyList
 
 
 
-//search bar on top 
+//search bar on top
 
 //list of companies (get all companies api)
 

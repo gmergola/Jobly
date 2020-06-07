@@ -18,8 +18,8 @@ function NavBar({currentUser, setCurrentUser}) {
     console.log("localStorage is:", localStorage);
     history.push('/');
   }
-//authenticates which navbar to render based on token state 
-  
+//authenticates which navbar to render based on token state
+
   if(currentUser.username){
   return (
     <nav>
@@ -28,7 +28,7 @@ function NavBar({currentUser, setCurrentUser}) {
         <li><NavLink exact to="/companies">Companies</NavLink></li>
         <li><NavLink exact to="/jobs">Jobs</NavLink></li>
         <li><NavLink exact to="/profile">Profile</NavLink></li>
-        <li><NavLink exact to="/" onClick={handleLogout} >Log Out</NavLink></li>
+        <li><NavLink exact to="/" onClick={handleLogout} >LogOut</NavLink></li>
       </ul>
     </nav>
   )

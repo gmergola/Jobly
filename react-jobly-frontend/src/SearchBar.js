@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import JoblyApi from "./HelperApi";
+import './SearchBar.css';
 
 
 
@@ -13,7 +14,7 @@ function SearchBar({ searchCompanies, searchJobs, whichSearch }) {
   function handleChange(evt) {
     let { name, value } = evt.target
     //TODO change to string
-    setFormData({[name]: value});
+    setFormData({ [name]: value });
   }
 
   // handleSubmit: changes our useEffect state to true ot false
@@ -24,7 +25,7 @@ function SearchBar({ searchCompanies, searchJobs, whichSearch }) {
   }
 
   //once our search is submitted, useEffect uses our API filteredCompanies
-  // or filteredJobs method then passes 
+  // or filteredJobs method then passes
   //reponse to our search function to change state in company list or job list
   //to filter lists shown
 
@@ -44,11 +45,11 @@ function SearchBar({ searchCompanies, searchJobs, whichSearch }) {
       } finally {
         setSearchClick(false);
       }
-    
-    },[searchCompanies, searchJobs, whichSearch]);
+
+    }, [searchCompanies, searchJobs, whichSearch]);
 
   useEffect(() => {
-    if(searchClick){
+    if (searchClick) {
       filterSearch(formData);
     }
 
@@ -57,9 +58,16 @@ function SearchBar({ searchCompanies, searchJobs, whichSearch }) {
   return (
     <div>
       <form onSubmit={handleSubmit}>
-        <label htmlFor="search">Search:</label>
-        <input onChange={handleChange} name="search" type="text" />
-        <button type="submit">Go</button>
+        <br />
+        <div className="input-group">
+          <input
+          className="search-input form-control"
+          onChange={handleChange}
+          name="search"
+          placeholder={whichSearch === 'companies' ? "Search Companies" : "Search Jobs"}
+          />
+          <button className="search-btn btn btn-success" type="submit">Search</button>
+        </div>
       </form>
     </div>
   );

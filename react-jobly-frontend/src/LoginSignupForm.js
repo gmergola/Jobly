@@ -21,7 +21,7 @@ function LoginSignupForm() {
   const [hideLogin, setHideLogin] = useState('Hidden');
   const [hideSignup, setHideSignup] = useState('Hidden');
   //spread initial data insise formData state, so there's no way for anyone to edit OG reference!!!
-  const [formData, setFormData] = useState({...initialData});
+  const [formData, setFormData] = useState({ ...initialData });
   const [logginIn, setlogginIn] = useState(false);
   const [signingUp, setsigningUp] = useState(false);
   const [errorMessage, setErrorMessage] = useState([]);
@@ -37,7 +37,7 @@ function LoginSignupForm() {
 
   useEffect(function registerOrLogin() {
     async function logIn() {
-      /*uses login request method, sets token state with response, saves token in 
+      /*uses login request method, sets token state with response, saves token in
       localStorage, redirects to companies once logged in via history */
 
       try {
@@ -49,10 +49,9 @@ function LoginSignupForm() {
         history.push("/companies");
       }
       catch (err) {
-        // setErrorMessage(messages=>([
-        //   ...messages, ...err
-        // ]));
-        // alert("Something went wrong. with login");
+        setErrorMessage(messages=>([
+          ...messages, ...err
+        ]));
         console.error(err);
       }
 
@@ -60,7 +59,7 @@ function LoginSignupForm() {
     }
     async function signUp() {
 
-      /*uses register request method, sets token state with response, saves token in 
+      /*uses register request method, sets token state with response, saves token in
       localStorage, redirects to companies once logged in via history */
 
       try {
@@ -69,10 +68,9 @@ function LoginSignupForm() {
         setToken(response);
         history.push("/companies");
       } catch (err) {
-        // setErrorMessage(messages=>([
-        //   ...messages, ...err
-        // ]));
-        // alert('Something went wrong with signup!');
+        setErrorMessage(messages=>([
+          ...messages, ...err
+        ]));
         console.error(err);
       }
 
@@ -144,29 +142,64 @@ function LoginSignupForm() {
   return (
     <div>
 
-      <button onClick={handleLoginButton}>Login</button>
-      <button onClick={handleRegisterButton}>Register</button>
-      <form className={`"loginForm" ${hideLogin}`} onSubmit={handleSubmitLogin}>
-        <label htmlFor="username">Username:</label>
-        <input onChange={handleChange} value={formData.username} name="username"></input><br />
-        <label htmlFor="password" >Password:</label>
-        <input onChange={handleChange} value={formData.password} name="password"></input><br />
-        <button type="submit">Submit</button>
+      <button className="login-signup-btn btn btn-primary" onClick={handleLoginButton}>Login</button>
+      <br />
+      <button className="login-signup-btn btn btn-secondary" onClick={handleRegisterButton}>Register</button>
+      <br />
+      <br />
+      <form className={`"loginForm" "form-group" ${hideLogin}`} onSubmit={handleSubmitLogin}>
+        <div className="input-group">
+          <div className="input-group-prepend">
+            <span className="input-group-text">Username</span>
+          </div>
+          <input className="form-control" onChange={handleChange} value={formData.username} name="username"></input>
+        </div>
+        <br />
+        <div className="input-group">
+          <div className="input-group-prepend">
+          <span className="input-group-text">Password</span>
+          </div>
+          <input className="form-control" onChange={handleChange} value={formData.password} name="password"></input>
+        </div>
+        <br />
+        <button className="login-btn btn btn-primary" type="submit">Submit</button>
         <div ><Alert errors={errorMessage} /></div>
       </form>
 
+
       <form className={`"signUpForm" ${hideSignup}`} onSubmit={handleSubmitSignUp}>
-        <label htmlFor="first_name">First Name:</label>
-        <input onChange={handleChange} value={formData.first_name} name="first_name"></input><br />
-        <label htmlFor="last_name">Last Name:</label>
-        <input onChange={handleChange} value={formData.last_name} name="last_name"></input><br />
-        <label htmlFor="email">E-mail:</label>
-        <input onChange={handleChange} value={formData.email} name="email"></input><br />
-        <label htmlFor="username">Username:</label>
-        <input onChange={handleChange} value={formData.username} name="username"></input><br />
-        <label htmlFor="password" >Password:</label>
-        <input onChange={handleChange} value={formData.password} name="password"></input><br />
-        <button type="submit">Submit</button>
+        <div className="input-group">
+          <div className="input-group-prepend">
+            <span className="input-group-text">First and last name</span>
+          </div>
+          <input className="form-control" onChange={handleChange} value={formData.first_name} name="first_name"></input><br />
+          <input className="form-control" onChange={handleChange} value={formData.last_name} name="last_name"></input><br />
+        </div>
+        <br />
+
+        <div className="input-group">
+          <div className="input-group-prepend">
+            <span className="input-group-text">Email</span>
+          </div>
+          <input className="form-control" onChange={handleChange} value={formData.email} name="email"></input>
+        </div>
+        <br />
+
+        <div className="input-group">
+          <div className="input-group-prepend">
+            <span className="input-group-text">Username</span>
+          </div>
+          <input className="form-control" onChange={handleChange} value={formData.username} name="username"></input>
+        </div>
+        <br />
+
+        <div className="input-group">
+          <div className="input-group-prepend">
+            <span className="input-group-text">Password</span>
+          </div>
+          <input className="form-control" onChange={handleChange} value={formData.password} name="password"></input>
+        </div>
+        <button className="signup-btn btn btn-secondary" type="submit">Submit</button>
         <div ><Alert errors={errorMessage} /></div>
       </form>
     </div>

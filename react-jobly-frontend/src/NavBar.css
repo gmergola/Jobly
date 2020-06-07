@@ -1,7 +1,8 @@
 
 nav {
-  border: 1px solid black;
-
+  text-align: center;
+  border-bottom: 5px solid lightgray;
+  margin-bottom: 20px;
 }
 li {
   display: inline;
@@ -16,3 +17,4 @@ a {
 a.active {
   color: black;
 }
+

@@ -5,10 +5,10 @@ import TokenContext from "./TokenContext";
 import Alert from './Alert';
 import "./login.css";
 
-// parent component of alert, child component of homepage,routes
-//renders forms, sends request, receives token or error based on response,
-//authenticates user or Alerts user to error, redirects to company page upon login
-
+/**LoginSignupForm:  parent component of alert, child component of homepage,routes
+ * renders forms, sends request, receives token or error based on response,
+ * authenticates user or Alerts user to error, redirects to company page upon login
+*/
 function LoginSignupForm() {
   const history = useHistory();
   const initialData = {
@@ -20,7 +20,7 @@ function LoginSignupForm() {
   }
   const [hideLogin, setHideLogin] = useState('Hidden');
   const [hideSignup, setHideSignup] = useState('Hidden');
-  //spread initial data insise formData state, so there's no way for anyone to edit OG reference!!!
+  //spread initial data inside formData state, so there's no way for anyone to edit OG reference!!!
   const [formData, setFormData] = useState({ ...initialData });
   const [logginIn, setlogginIn] = useState(false);
   const [signingUp, setsigningUp] = useState(false);
@@ -28,20 +28,15 @@ function LoginSignupForm() {
   const { setToken } = useContext(TokenContext);
 
 
-  //use callback memoizes, if any dependcies change ill make a new function
-  //store the same reference in memory unless something has changed
-  /*invokes our login/register requests (depending on which form is submitted)
-    then resets our submit click states, and hides error messages if exposed
+  /*registerOrLogin: invokes login/register requests (depending on which form is submitted)
+    then resets submit click states, and hides error messages if exposed
   */
-
-
   useEffect(function registerOrLogin() {
+    /*logIn: uses login request method, sets token state with response, saves token in
+    localStorage, redirects to companies once logged in via history */
     async function logIn() {
-      /*uses login request method, sets token state with response, saves token in
-      localStorage, redirects to companies once logged in via history */
 
       try {
-        console.log("dologin is happening");
         let response = await JoblyApi.login(formData);
         window.localStorage.setItem('token', response);
         window.localStorage.setItem('username', formData.username);
@@ -57,14 +52,15 @@ function LoginSignupForm() {
 
 
     }
-    async function signUp() {
 
-      /*uses register request method, sets token state with response, saves token in
-      localStorage, redirects to companies once logged in via history */
+    /*signup: uses register request method, sets token state with response, saves token in
+    localStorage, redirects to companies once logged in via history */
+    async function signUp() {
 
       try {
         let response = await JoblyApi.signup(formData);
         window.localStorage.setItem('token', response);
+        window.localStorage.setItem('username', formData.username);
         setToken(response);
         history.push("/companies");
       } catch (err) {
@@ -138,13 +134,14 @@ function LoginSignupForm() {
     setHideSignup("Hidden");
   }
 
-
   return (
     <div>
-
+      {!window.localStorage.getItem("token") &&
+      <div>
       <button className="login-signup-btn btn btn-primary" onClick={handleLoginButton}>Login</button>
       <br />
       <button className="login-signup-btn btn btn-secondary" onClick={handleRegisterButton}>Register</button>
+      </div>}
       <br />
       <br />
       <form className={`"loginForm" "form-group" ${hideLogin}`} onSubmit={handleSubmitLogin}>

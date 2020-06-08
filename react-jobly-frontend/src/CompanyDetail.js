@@ -3,14 +3,14 @@ import JoblyApi from "./HelperApi";
 import { useParams } from "react-router-dom";
 import JobCard from './JobCard';
 
-function CompanyDetail({ currentUser }) {
+function CompanyDetail() {
   const [company, setCompany] = useState({});
   let { name } = useParams();
   const [isLoading, setIsLoading] = useState(true);
 
   // make api call to get a company
   // handle error if call went wrong
-  // set isLoading state back to false 
+  // set isLoading state back to false
   useEffect(() => {
     console.log('use effect working');
     async function getCompany() {
@@ -32,10 +32,6 @@ function CompanyDetail({ currentUser }) {
 
     return (<div>"Loading..."</div>);
 
-  } else if (!currentUser.username) {
-    return (
-      <h1>UNAUTHORIZED!</h1>
-    );
   } else {
     return (
       <div>

@@ -4,7 +4,7 @@ import SearchBar from "./SearchBar";
 import JobCard from "./JobCard";
 
 /**JobList: Component that renders list of JobCards */
-function JobList({currentUser}) {
+function JobList() {
   const [jobs, setJobs] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -35,10 +35,6 @@ function JobList({currentUser}) {
       <div>
         Loading...
       </div>
-    )
-  } else if(!currentUser.username) {
-    return(
-      <h1>UNAUTHORIZED!</h1>
     )
   }else{
 

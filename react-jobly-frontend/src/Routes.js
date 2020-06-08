@@ -32,7 +32,8 @@ function Routes() {
     fetchCurrentUser();
   }, [token]);
 
-
+  console.log('TOKEN: ', token)
+  console.log('CURRENT USER: ', currentUser)
 
 
 
@@ -47,7 +48,7 @@ function Routes() {
             <Homepage />
           </Route>
           <Route exact path="/login">
-            <LoginSignupForm />
+            <LoginSignupForm currentUser={currentUser}/>
           </Route>
           {!!window.localStorage.getItem("token") &&
             <PrivateRoutes

@@ -14,13 +14,13 @@ function PrivateRoutes({ currentUser }) {
     <>
       <Switch>
         <Route exact path="/companies">
-          <CompanyList currentUser={currentUser} />
+          <CompanyList />
         </Route>
         <Route exact path="/companies/:name">
-          <CompanyDetail currentUser={currentUser} />
+          <CompanyDetail />
         </Route>
         <Route exact path="/jobs">
-          <JobList currentUser={currentUser} />
+          <JobList />
         </Route>
         <Route exact path="/profile">
           <ProfileForm currentUser={currentUser} />

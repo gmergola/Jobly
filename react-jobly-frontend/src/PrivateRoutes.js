@@ -7,7 +7,7 @@ import ProfileForm from "./ProfileForm";
 
 /**PrivateRoutes: Renders routes
  * that can only be seen when user is logged in
- * when token in in local ctorage
+ * when token is in local ctorage
  */
 function PrivateRoutes({ currentUser }) {
   return (

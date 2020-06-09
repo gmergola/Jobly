@@ -4,9 +4,6 @@ class JoblyApi {
   static async request(endpoint, paramsOrData = {}, verb = "get") {
     let currentToken = localStorage.getItem("token");
     paramsOrData._token = currentToken;
-      // ("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc" +
-      // "3RpbmciLCJpc19hZG1pbiI6ZmFsc2UsImlhdCI6MTU1MzcwMzE1M30." +
-      // "COmFETEsTxN_VfIlgIKw0bYJLkvbRQNgO1XCSE8NZ0U");
 
     console.debug("API Call:", endpoint, paramsOrData, verb);
 
@@ -50,14 +47,14 @@ class JoblyApi {
   }
 
 
-  // get filtered companies 
+  // get filtered companies
 
   static async getFilteredCompanies(params) {
     let res = await this.request('companies/', params);
     return res.companies;
   }
 
-  // get filtered jobs 
+  // get filtered jobs
 
   static async getFilteredJobs(params) {
     let res = await this.request('jobs/', params);

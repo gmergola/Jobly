@@ -4,6 +4,7 @@ import { useHistory } from "react-router-dom";
 import TokenContext from "./TokenContext";
 import Alert from './Alert';
 import "./login.css";
+import blueLines from './images/blue-lines.gif';
 
 /**LoginSignupForm:  parent component of alert, child component of homepage,routes
  * renders forms, sends request, receives token or error based on response,
@@ -136,12 +137,14 @@ function LoginSignupForm() {
 
   return (
     <div>
-      {!window.localStorage.getItem("token") &&
+      {!window.localStorage.getItem("token") ?
       <div>
       <button className="login-signup-btn btn btn-primary" onClick={handleLoginButton}>Login</button>
       <br />
       <button className="login-signup-btn btn btn-secondary" onClick={handleRegisterButton}>Register</button>
-      </div>}
+      </div>
+      :
+      <img src={blueLines} alt="lines"/>}
       <br />
       <br />
       <form className={`"loginForm" "form-group" ${hideLogin}`} onSubmit={handleSubmitLogin}>

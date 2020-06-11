@@ -1,5 +1,6 @@
 import axios from "axios";
 
+/**JoblyApi: a class of instance methods that make axios requests */
 class JoblyApi {
   static async request(endpoint, paramsOrData = {}, verb = "get") {
     let currentToken = localStorage.getItem("token");
@@ -13,9 +14,6 @@ class JoblyApi {
         url: `http://localhost:3001/${endpoint}`,
         [verb === "get" ? "params" : "data"]: paramsOrData
       })).data;
-      // axios sends query string data via the "params" key,
-      // and request body data via the "data" key,
-      // so the key we need depends on the HTTP verb
     }
 
     catch (err) {
@@ -25,62 +23,61 @@ class JoblyApi {
     }
   }
 
-  //gets company by handle from backend API
-
+  /*getCompany: gets company by handle from backend API*/
   static async getCompany(handle) {
     let res = await this.request(`companies/${handle}`);
     return res.company;
   }
 
-  //gets all companies from backend API
-
+  /*getAllCompanies: gets all companies from backend API*/
   static async getAllCompanies() {
     let res = await this.request('companies/');
     return res.companies;
   }
 
-  //gets all jobs from backend API
-
+  /*getAllJobs: gets all jobs from backend API*/
   static async getAllJobs() {
     let res = await this.request('jobs/');
     return res.jobs;
   }
 
-
-  // get filtered companies
-
+  /**getFilteredCompanies: get's companies based on query string from search */
   static async getFilteredCompanies(params) {
     let res = await this.request('companies/', params);
     return res.companies;
   }
 
-  // get filtered jobs
-
+  /**getFilteredJobs: get's jobs based on query string from search */
   static async getFilteredJobs(params) {
     let res = await this.request('jobs/', params);
     return res.jobs;
   }
-
-  // make login post request
-  // jsonData -> {username: '', password: ''}
-  static async login(data){
+  /**updateUser: edits the current user
+   * jsonData -> {username: '', password: ''}
+    */
+  static async login(data) {
     let res = await this.request('login/', data, "post");
     return res.token;
   }
-  // make signup post request
-  // jsonData -> {username: '', password: '', first_name: '', last_name: '', email: ''}
-  static async signup(data){
+  /**updateUser: edits the current user
+   * jsonData -> {username: '', password: '', first_name: '', last_name: '', email: ''}
+   */
+  static async signup(data) {
     let res = await this.request('users/', data, "post");
     return res.token;
   }
 
+  /**getCurrentUser: gets the current signed in user */
   static async getCurrentUser(username) {
     let res = await this.request(`users/${username}`);
     return res.user;
   }
 
-  static async updateProfile(username, password){
-    let res = await this.request(`users/${username}`, password, "patch");
+  /**updateUser: edits the current user
+   * jsonData -> {first_name: '', last_name: '', email: '', photo_url: '', username: '', password: ''}
+   */
+  static async updateProfile(username, data) {
+    let res = await this.request(`users/${username}`, data, "patch");
     return res.user;
   }
 

@@ -4,43 +4,51 @@ import Alert from './Alert';
 import JoblyApi from "./HelperApi";
 import './ProfileForm.css';
 
-/**WIP */
-function ProfileForm({ currentUser }) {
-  console.log('profile user: ', currentUser);
-  const [formData, setFormData] = useState({});
+/**ProfileForm: Edits a user's information as long as the password is corrent */
+function ProfileForm({ currentUser, setCurrentUser }) {
   const [errorMessage, setErrorMessage] = useState([]);
+  const [formData, setFormData] = useState({
+    first_name: currentUser.first_name || "",
+    last_name: currentUser.last_name || "",
+    email: currentUser.email || "",
+    photo_url: currentUser.photo_url || "",
+    username: currentUser.username,
+    password: "",
+  });
 
-  // set authorization
-  // make a patch request to the server
-  // initial form data to be current user info without password
-  // implement re-enter password
-  // const [formData, setFormData] = useState({});
-
-  function handleChange() {
-    return 'change';
+  function handleChange(evt) {
+    const { name, value } = evt.target;
+    setFormData(f => ({
+      ...f,
+      [name]: value,
+      errors: []
+    }));
   }
 
-  function handleSubmit() {
-    return 'submit';
+  async function handleSubmit(evt) {
+    evt.preventDefault();
+    let profileData = {
+      first_name: formData.first_name || undefined,
+      last_name: formData.last_name || undefined,
+      email: formData.email || undefined,
+      photo_url: formData.photo_url || undefined,
+      password: formData.password
+    };
+
+    let username = formData.username;
+    let editedUser;
+
+    try {
+      editedUser = await JoblyApi.updateProfile(username, profileData);
+    } catch (errors) {
+      setErrorMessage(errors);
+      return;
+    }
+
+    setFormData(f => ({ ...f, password: "" }));
+    setErrorMessage([]);
+    setCurrentUser(editedUser);
   }
-
-  // useEffect(function Edit() {
-  //   async function editUser() {
-
-  //     try {
-  //       let response = await JoblyApi.updateProfile(currentUser.username);
-  //       window.localStorage.setItem('username', formData.username);
-  //       setToken(response);
-  //       history.push("/companies");
-  //     } catch (err) {
-  //       setErrorMessage(messages => ([
-  //         ...messages, ...err
-  //       ]));
-  //       console.error(err);
-  //     }
-
-  //   }
-  // }, [signingUp, logginIn, formData, initialData, setToken, history])
 
   return (
     <div>
@@ -52,6 +60,9 @@ function ProfileForm({ currentUser }) {
       </div>
       <br />
       <div>
+      <br />
+      <h3>Edit your profile information</h3>
+      <div ><Alert errors={errorMessage} /></div>
         <form className="form-group" onSubmit={handleSubmit}>
           <div className="input-group">
             <div className="input-group-prepend">
@@ -89,7 +100,6 @@ function ProfileForm({ currentUser }) {
           </div>
           <br />
           <button className="ProfileForm-button btn btn-info" type="submit">Save</button>
-          <div ><Alert errors={errorMessage} /></div>
         </form>
       </div>
     </div>

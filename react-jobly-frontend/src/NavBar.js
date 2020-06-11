@@ -4,7 +4,7 @@ import "./NavBar.css";
 import TokenContext from "./TokenContext";
 import { useHistory } from "react-router-dom";
 
-//renders navbar on every page, depending on logged in status of user
+/*NavBar: renders navbar on every page, depending on logged in status of user*/
 function NavBar({currentUser, setCurrentUser}) {
   const {setToken} = useContext(TokenContext);
   const history = useHistory();
@@ -18,8 +18,8 @@ function NavBar({currentUser, setCurrentUser}) {
     console.log("localStorage is:", localStorage);
     history.push('/');
   }
-//authenticates which navbar to render based on token state
 
+//authenticates which navbar to render based on token state
   if(currentUser.username){
   return (
     <nav>

@@ -21,7 +21,6 @@ function LoginSignupForm() {
   }
   const [hideLogin, setHideLogin] = useState('Hidden');
   const [hideSignup, setHideSignup] = useState('Hidden');
-  //spread initial data inside formData state, so there's no way for anyone to edit OG reference!!!
   const [formData, setFormData] = useState({ ...initialData });
   const [logginIn, setlogginIn] = useState(false);
   const [signingUp, setsigningUp] = useState(false);
@@ -33,6 +32,7 @@ function LoginSignupForm() {
     then resets submit click states, and hides error messages if exposed
   */
   useEffect(function registerOrLogin() {
+
     /*logIn: uses login request method, sets token state with response, saves token in
     localStorage, redirects to companies once logged in via history */
     async function logIn() {
@@ -94,26 +94,17 @@ function LoginSignupForm() {
   }, [signingUp, logginIn, formData, initialData, setToken, history])
 
 
-  //upon signUp submit, changes click state to trigger useEffect
-
   function handleSubmitSignUp(evt) {
     evt.preventDefault();
     setsigningUp(true);
-    //checks localStorage to make sure it does what we want
-    console.log("signup", localStorage);
   }
-
-  //upon logIn submit, changes click state to trigger useEffect
 
   function handleSubmitLogin(evt) {
     evt.preventDefault();
     setlogginIn(true);
-    //checks localStorage to make sure it does what we want
     console.log("login", localStorage);
 
   }
-
-  // on data change, sets form data
 
   function handleChange(evt) {
     const { name, value } = evt.target;
@@ -124,12 +115,10 @@ function LoginSignupForm() {
   }
 
   //toggles our register/login forms to view the appropriate form
-
   function handleRegisterButton() {
     setHideLogin("Hidden");
     setHideSignup("");
   }
-
   function handleLoginButton() {
     setHideLogin("");
     setHideSignup("Hidden");
@@ -137,6 +126,7 @@ function LoginSignupForm() {
 
   return (
     <div>
+      <div ><Alert errors={errorMessage} /></div>
       {!window.localStorage.getItem("token") ?
       <div>
       <button className="login-signup-btn btn btn-primary" onClick={handleLoginButton}>Login</button>
@@ -163,7 +153,6 @@ function LoginSignupForm() {
         </div>
         <br />
         <button className="login-btn btn btn-primary" type="submit">Submit</button>
-        <div ><Alert errors={errorMessage} /></div>
       </form>
 
 
@@ -200,7 +189,6 @@ function LoginSignupForm() {
           <input className="form-control" onChange={handleChange} value={formData.password} name="password"></input>
         </div>
         <button className="signup-btn btn btn-secondary" type="submit">Submit</button>
-        <div ><Alert errors={errorMessage} /></div>
       </form>
     </div>
   )

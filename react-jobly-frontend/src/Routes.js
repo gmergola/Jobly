@@ -16,7 +16,6 @@ function Routes() {
   const [token, setToken] = useState("");
   const [currentUser, setCurrentUser] = useState({});
 
-  //get the current user
   useEffect(function getUser() {
     async function fetchCurrentUser() {
       try {
@@ -32,13 +31,6 @@ function Routes() {
     fetchCurrentUser();
   }, [token]);
 
-  console.log('TOKEN: ', token)
-  console.log('CURRENT USER: ', currentUser)
-
-
-
-
-  //pass states as provider, use context when login form updates
   return (
     <div className="container">
       <TokenContext.Provider value={{ token, setToken }}>
@@ -52,7 +44,7 @@ function Routes() {
           </Route>
           {!!window.localStorage.getItem("token") &&
             <PrivateRoutes
-              currentUser={currentUser} />}
+              currentUser={currentUser} setCurrentUser={setCurrentUser} />}
           <Redirect to="/" />
         </Switch>
       </TokenContext.Provider>

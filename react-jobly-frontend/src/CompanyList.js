@@ -9,7 +9,6 @@ function CompanyList() {
   const [companies, setCompanies] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  // Inital request to get all companies
   useEffect(() => {
     async function getCompanies() {
       try {
@@ -26,12 +25,11 @@ function CompanyList() {
   }, [setCompanies]);
 
 
-//runs on search bar if search bar is used, passed to search bar component in props
   function companyListSearch(filteredCompanies){
     setCompanies(filteredCompanies);
   }
 
-  //change to state
+
   if (isLoading) {
     return (
       <div>
@@ -58,14 +56,4 @@ function CompanyList() {
   }
 }
 
-export default CompanyList
-
-
-
-//search bar on top
-
-//list of companies (get all companies api)
-
-//map to get company card for each company
-
-//- company card  props = company
+export default CompanyList;

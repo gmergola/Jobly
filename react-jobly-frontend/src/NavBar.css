@@ -1,15 +1,22 @@
 
 nav {
-  text-align: center;
+  overflow: hidden;
+  background-color: lightgray;
+  display: flex;
   border-bottom: 5px solid lightgray;
-  margin-bottom: 20px;
-  margin-top: 30px;
-}
-li {
-  display: inline;
-  margin: 10px;
 }
 
+li {
+  display: inline;
+  margin: 20px;
+}
+
+@media only screen and (max-width: 600px) {
+  li {
+    margin: 8px;
+  }
+
+}
 a {
   text-decoration: none;
 

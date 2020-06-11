@@ -1,7 +1,14 @@
 ## Jobly!
 A site to find and apply for jobs
 
-# Home page
-![website homepage](./screen-shots/homepage.png)
+# Home Page
+![website homepage](./screen-shots/home.png)
+
 # Companies Page
-![website homepage](./screen-shots/companies.png)
+![website companies](./screen-shots/companies.png)
+
+# Jobs Page
+![website Jobs](./screen-shots/jobs.png)
+
+# Profile Page
+![website Profile](./screen-shots/profile.png)

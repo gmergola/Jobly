@@ -9,7 +9,7 @@ import ProfileForm from "./ProfileForm";
  * that can only be seen when user is logged in
  * when token is in local ctorage
  */
-function PrivateRoutes({ currentUser }) {
+function PrivateRoutes({ currentUser, setCurrentUser }) {
   return (
     <>
       <Switch>
@@ -23,7 +23,7 @@ function PrivateRoutes({ currentUser }) {
           <JobList />
         </Route>
         <Route exact path="/profile">
-          <ProfileForm currentUser={currentUser} />
+          <ProfileForm setCurrentUser={setCurrentUser} currentUser={currentUser} />
         </Route>
         <Redirect to="/" />
       </Switch>

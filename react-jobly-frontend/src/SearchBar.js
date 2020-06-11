@@ -6,14 +6,12 @@ import './SearchBar.css';
 
 /**SearchBar: Component that is used to filter a list */
 function SearchBar({ searchCompanies, searchJobs, whichSearch }) {
-  //TODO add string
-  const [formData, setFormData] = useState();
+  const [formData, setFormData] = useState('');
   const [searchClick, setSearchClick] = useState(false);
 
   // handleChange: sets formData state to form values
   function handleChange(evt) {
     let { name, value } = evt.target
-    //TODO change to string
     setFormData({ [name]: value });
   }
 
@@ -24,11 +22,10 @@ function SearchBar({ searchCompanies, searchJobs, whichSearch }) {
 
   }
 
-  //once our search is submitted, useEffect uses our API filteredCompanies
-  // or filteredJobs method then passes
-  //reponse to our search function to change state in company list or job list
-  //to filter lists shown
-
+  /*filteredSearch: once search is submitted, useEffect uses API filteredCompanies
+  or filteredJobs method then passes
+  reponse to search function to change state in company list or job list
+  to filter lists shown*/
   const filterSearch = useCallback(
     async (formData) => {
       try {
@@ -73,4 +70,4 @@ function SearchBar({ searchCompanies, searchJobs, whichSearch }) {
   );
 }
 
-export default SearchBar
+export default SearchBar;

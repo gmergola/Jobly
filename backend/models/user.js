@@ -14,14 +14,14 @@ class User {
   static async authenticate(data) {
     // try to find the user first
     const result = await db.query(
-        `SELECT username, 
-                password, 
-                first_name, 
-                last_name, 
-                email, 
-                photo_url, 
+        `SELECT username,
+                password,
+                first_name,
+                last_name,
+                email,
+                photo_url,
                 is_admin
-          FROM users 
+          FROM users
           WHERE username = $1`,
         [data.username]
     );
@@ -45,15 +45,15 @@ class User {
 
   static async register(data) {
     const duplicateCheck = await db.query(
-        `SELECT username 
-            FROM users 
+        `SELECT username
+            FROM users
             WHERE username = $1`,
         [data.username]
     );
 
     if (duplicateCheck.rows[0]) {
       const err = new Error(
-          `There already exists a user with username '${data.username}`);
+          `The username "${data.username}" already exists. Please choose another`);
       err.status = 409;
       throw err;
     }
@@ -61,9 +61,9 @@ class User {
     const hashedPassword = await bcrypt.hash(data.password, BCRYPT_WORK_FACTOR);
 
     const result = await db.query(
-        `INSERT INTO users 
-            (username, password, first_name, last_name, email, photo_url) 
-          VALUES ($1, $2, $3, $4, $5, $6) 
+        `INSERT INTO users
+            (username, password, first_name, last_name, email, photo_url)
+          VALUES ($1, $2, $3, $4, $5, $6)
           RETURNING username, password, first_name, last_name, email, photo_url`,
         [
           data.username,
@@ -92,21 +92,21 @@ class User {
 
   static async findOne(username) {
     const userRes = await db.query(
-        `SELECT username, first_name, last_name, email, photo_url 
-            FROM users 
+        `SELECT username, first_name, last_name, email, photo_url
+            FROM users
             WHERE username = $1`,
         [username]);
 
     const user = userRes.rows[0];
 
     if (!user) {
-      const error = new Error(`There exists no user '${username}'`);
+      const error = new Error(`There is no user with usernsme, ${username}`);
       error.status = 404;   // 404 NOT FOUND
       throw error;
     }
 
     const userJobsRes = await db.query(
-        `SELECT j.id, j.title, j.company_handle, a.state 
+        `SELECT j.id, j.title, j.company_handle, a.state
            FROM applications AS a
              JOIN jobs AS j ON j.id = a.job_id
            WHERE a.username = $1`,
@@ -141,7 +141,7 @@ class User {
     const user = result.rows[0];
 
     if (!user) {
-      let notFound = new Error(`There exists no user '${username}`);
+      let notFound = new Error(`There is no user with usernsme, ${username}`);
       notFound.status = 404;
       throw notFound;
     }
@@ -156,13 +156,13 @@ class User {
 
   static async remove(username) {
       let result = await db.query(
-              `DELETE FROM users 
+              `DELETE FROM users
                 WHERE username = $1
                 RETURNING username`,
               [username]);
 
     if (result.rows.length === 0) {
-      let notFound = new Error(`There exists no user '${username}'`);
+      let notFound = new Error(`There is no user with usernsme, ${username}`);
       notFound.status = 404;
       throw notFound;
     }

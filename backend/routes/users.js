@@ -40,6 +40,7 @@ router.post("/", async function(req, res, next) {
   try {
     delete req.body._token;
     const validation = validate(req.body, userNewSchema);
+    // console.log(validation.errors);
 
     if (!validation.valid) {
       return next({

@@ -4,7 +4,10 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node $(which jest) --runInBand",
+    "start": "nodemon -e js,html,css server.js",
+    "debug": "nodemon --inspect server.js",
+    "debug-test": "node --inspect-brk $(which jest) --runInBand"
   },
   "keywords": [],
   "author": "",
@@ -19,6 +22,7 @@
     "jsonwebtoken": "^8.5.0",
     "locus": "^2.0.1",
     "morgan": "^1.9.1",
+    "nodemon": "^2.0.4",
     "pg": "^8.0.3"
   },
   "devDependencies": {

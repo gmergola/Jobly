@@ -1,0 +1,72 @@
+digraph schema {
+  graph [fontname=Arial rankdir=LR]
+  node [margin=0.08 fontname=Arial width=1.6 fontsize=10 shape=rect]
+  App [label=<<b>App</b>>]
+  TokenContext [label=<<b>TokenContext</b><br /><br/> <b>Provider:</b> <br/>token>]
+  CurrentUserContext [label=<<b>CurrentUserContext</b><br /><br/> <b>Provider:</b> <br/>currentUser>]
+  Routes [label=<<b>Routes</b> <br/> Uses &lt;PrivateRoutes&gt; >]
+  NavBar [label=<<b>NavBar</b> <br /> /<br /> /companies <br /> /jobs<br /> /profile<br /> /logout<br /> /login>]
+  ProfileForm [label=<<b>ProfileForm</b>>]
+  CompanyList [label=<<b>CompanyList</b>>]
+  CompanyDetail [label=<<b>CompanyDetail</b>>]
+  JobList [label=<<b>JobList</b>>]
+  SearchBar [label=<<b>SearchBar</b>> color=green]
+  CompanyCard [label=<<b>CompanyCard</b>>]
+  LoadingSpinner [label=<<b>LoadingSpinner</b>> color=blue]
+  LoadingSpinner2 [label=<<b>LoadingSpinner</b>> color=blue]
+  LoadingSpinner3 [label=<<b>LoadingSpinner</b>> color=blue]
+  LoadingSpinner4 [label=<<b>LoadingSpinner</b>> color=blue]
+  LoadingSpinner5 [label=<<b>LoadingSpinner</b>> color=blue]
+  LoadingSpinner6 [label=<<b>LoadingSpinner</b>> color=blue]
+  JobCard [label=<<b>JobCard</b>> color=orange]
+  Alert [label=<<b>Alert</b>> color=firebrick]
+  Alert2 [label=<<b>Alert</b>> color=firebrick]
+  Alert3 [label=<<b>Alert</b>> color=firebrick]
+  LoginForm [label=<<b>LoginForm</b>>]
+  SignupForm [label=<<b>SignupForm</b>>]
+  HomePage [label=<<b>HomePage</b>>]
+  LoginSignupForm [label=<<b>LoginSignupForm</b>>]
+
+  App ->  Routes
+  Routes -> TokenContext
+  Routes -> CurrentUserContext
+  Routes -> NavBar
+  Routes -> HomePage [label="/" color="magenta"]
+  Routes -> LoginSignupForm [label="/login" color="magenta"]
+  Routes -> CompanyList [label="/companies" color="purple"]
+  Routes -> CompanyDetail [label="/companies/:name" color="purple"]
+  Routes -> JobList [label="/jobs" color="purple"]
+  Routes -> ProfileForm [label="/profile" color="purple"]
+  LoginSignupForm -> LoginForm [color="lightblue"]
+  LoginSignupForm -> SignupForm [color="lightblue"]
+  CompanyList -> CompanyCard [color="lightblue"]
+  CompanyList -> SearchBar [color="green"]
+  JobList -> SearchBar [color="green"]
+  CompanyDetail -> JobCard [color="orange"]
+  JobList -> JobCard [color="orange"]
+  SignupForm -> LoadingSpinner [color="blue"]
+  JobList -> LoadingSpinner2 [color="blue"]
+  ProfileForm -> LoadingSpinner3 [color="blue"]
+  CompanyDetail -> LoadingSpinner4 [color="blue"]
+  CompanyList -> LoadingSpinner5 [color="blue"]
+  LoginForm -> LoadingSpinner6 [color="blue"]
+  ProfileForm -> Alert3 [color="firebrick"]
+  SignupForm -> Alert [color="firebrick"]
+  LoginForm -> Alert2 [color="firebrick"]
+
+  subgraph legend {
+    node [color=gray fontcolor=gray40 width=1 fontsize=9];
+    edge [fontsize=7.5 fontcolor=gray40 color=gray]
+    Component [label=<<b>Component</b>>]
+    Component -> Child [label=<<b><font point-size="12">Directory:</font></b><br />
+    <br/><i><b><font color="lightblue">Rendered By One Component</font> </b></i>
+    <br /><i><b><font color="magenta">Public Routes</font></b></i>
+    <br /><i><b><font color="purple">&lt;PrivateRoutes&gt;</font></b></i>
+    <br/><i><b><font color="firebrick">&lt;Alert&gt;</font> </b></i>
+    <br/><i><b><font color="blue">&lt;LoadingSpinner&gt;</font> </b></i>
+    <br/><i><b><font color="green">&lt;SearchBar&gt;</font> </b></i>
+    <br/><i><b><font color="orange">&lt;JobCard&gt;</font> </b></i>
+    >]
+    Child [label=<<b>Child</b>>]
+  }
+}
